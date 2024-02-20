@@ -2,7 +2,8 @@
   <nav>
     <div>
       <router-link to="/">Home</router-link> |
-      <router-link to="/cart">Cart</router-link>
+      <router-link to="/cart">Cart</router-link> |
+      <router-link to="/order_history">My orders</router-link>
     </div>
     <div class="nav_split">
       <router-link to="/login">Login</router-link>

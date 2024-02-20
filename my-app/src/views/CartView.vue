@@ -18,6 +18,7 @@ export default {
 
 <template>
   <h2>Products in cart:</h2>
+  <button class="create_new_order" @click="store.commit('createOrder')">Create order</button>
   <div class="cart">
     <div class="item" v-for="product in store.state.cart" :key="product.id">
       <p>Название: {{ product.name }}</p>
@@ -42,5 +43,12 @@ export default {
   display: grid;
   grid-template-columns: 150px 150px 150px 150px 150px;
   gap: 90px;
+}
+
+.create_new_order{
+  width: 150px;
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: #42b983;
 }
 </style>
