@@ -2,7 +2,7 @@
   <nav>
     <div>
       <router-link to="/">Home</router-link> |
-      <router-link to="/cart">Cart</router-link> |
+      <router-link v-if="store.state.user_token !== null" to="/cart">Cart</router-link> |
       <router-link to="/order">My orders</router-link>
     </div>
     <div class="nav_split">
@@ -45,5 +45,24 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
-<script setup>
+<script>
+
+import store from "@/store";
+
+export default {
+  computed: {
+    store() {
+      return store
+    }
+  },
+  data(){
+    return{
+    }
+  },
+  mounted() {
+    if (localStorage.token !== undefined && localStorage.token !== null) {
+      store.state.user_token = localStorage.token;
+    }
+  }
+}
 </script>

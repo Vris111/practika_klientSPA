@@ -24,37 +24,37 @@ export default createStore({
     },
 
     async login(state){
-
       //валидация
+      let userData={
+        email: state.email,
+        password: state.password
+      }
 
-      const data = await axios.post('https://jurapro.bhuser.ru/api-shop/login', {email: 'ivv.ven0@gmail.com',password: 'QWEasd123'})
+      const data = await axios.post('https://jurapro.bhuser.ru/api-shop/login',userData)
           .then(function (response) {
             console.log(response);
+            state.user_token = response.data.data.user_token;
+            localStorage.token = state.user_token;
           })
-          .then(function (response) {
-            console.log(response);
-          })
-      console.log(data);
+          .catch(error =>{console.log(error)})
+      console.log(data)
     },
 
     async registration(state){
-
       //валидация
-
       let userData = {
         fio: state.fio,
         email: state.email,
         password: state.password
       }
-
       const data = await axios.post('https://jurapro.bhuser.ru/api-shop/signup', userData)
           .then(function (response) {
             console.log(response);
-            state.user_token = response.data.data.user_token
+            state.user_token = response.data.data.user_token;
+            localStorage.token = state.user_token;
           })
           .catch(error =>{console.log(error)})
       console.log(data)
-
     },
     addToCart(state, product){
       state.cart.push(product);
@@ -76,5 +76,5 @@ export default createStore({
   actions: {
   },
   modules: {
-  }
+  },
 })

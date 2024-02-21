@@ -12,7 +12,7 @@ export default {
     return{
       countItemId: 0,
     }
-  },
+  }
 }
 
 </script>
