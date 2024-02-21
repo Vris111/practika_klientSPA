@@ -24,7 +24,7 @@ export default {
         {{product.description}}
         <p></p>
         {{product.price}}
-        <button class="addItemInCart"  @click="store.commit('addToCart', product)">Buy</button>
+        <button class="addItemInCart" v-if="store.state.user_token !== null"  @click="store.commit('addToCart', {product})">Buy</button>
       </p>
     </ul>
   </div>

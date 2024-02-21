@@ -22,6 +22,12 @@ export default createStore({
           .catch(error =>{console.log(error)})
       state.products = data;
     },
+    async getProductsFromCart(state){
+      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/cart')
+          .then(response => state.cart = response.data)
+          .catch(error =>{console.log(error)})
+      state.cart = data;
+    },
 
     async login(state){
       //валидация
@@ -38,6 +44,7 @@ export default createStore({
           })
           .catch(error =>{console.log(error)})
       console.log(data)
+      window.location.href = "/";
     },
 
     async registration(state){
@@ -55,9 +62,15 @@ export default createStore({
           })
           .catch(error =>{console.log(error)})
       console.log(data)
+      window.location.href = "/";
     },
-    addToCart(state, product){
-      state.cart.push(product);
+    async addToCart(state, {product}) {
+      try {
+        const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`, {product});
+        state.cart = response.data.data;
+      } catch (error) {
+        console.error('Error adding product to cart:', error);
+      }
     },
     createOrder(state){
       let newOrders = state.cart.map(item => ({...item}))
