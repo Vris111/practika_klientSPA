@@ -66,8 +66,10 @@ export default createStore({
     },
     async addToCart(state, {product}) {
       try {
-        const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`, {product});
+        const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`,
+            {product}, {headers:{Authorization: `Bearer ${state.user_token}`}});
         state.cart = response.data.data;
+
       } catch (error) {
         console.error('Error adding product to cart:', error);
       }
