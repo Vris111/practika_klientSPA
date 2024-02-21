@@ -14,10 +14,12 @@ export default {
 <template>
   <h2>Products in order:</h2>
   <div class="cart">
-    <div class="item" v-for="product in store.state.orders" :key="product.id">
-      <p>{{ product.name }}</p>
-      <p>{{ product.description }}</p>
-      <p>{{ product.price }}</p>
+    <div class="order" v-for="product in store.state.orders" :key="product.id">
+      <div class="item" v-for="item in product" :key="item.id">
+        <p>{{ item.name }}</p>
+        <p>{{ item.description }}</p>
+        <p>{{ item.price }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -26,16 +28,21 @@ export default {
 .item{
   border: 1px solid black;
   padding: 5px;
-  width: 220px;
-  height: 400px;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  width: 300px;
+}
+
+.order{
+  display: flex;
+  gap: 60px;
+
 }
 
 .cart {
-  display: grid;
-  grid-template-columns: 150px 150px 150px 150px 150px;
+  display: flex;
+  flex-direction: column;
   gap: 90px;
 }
 </style>
