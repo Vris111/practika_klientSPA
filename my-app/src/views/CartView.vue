@@ -21,9 +21,9 @@ export default {
   <button class="create_new_order" @click="store.commit('createOrder')">Create order</button>
   <div class="cart">
     <div class="item" v-for="product in store.state.cart" :key="product.id">
-      <p>Название: {{ product.name }}</p>
-      <p>Описание: {{ product.description }}</p>
-      <p>Цена: {{ product.price }}</p>
+      <p>{{ product.name }} <button class="delete_card_from_cart" @click="store.commit('delCardFromCart', product)">×</button></p>
+      <p>{{ product.description }}</p>
+      <p>{{ product.price }}</p>
     </div>
   </div>
 </template>
@@ -50,5 +50,9 @@ export default {
   height: 30px;
   margin-bottom: 10px;
   background-color: #42b983;
+}
+
+.delete_card_from_cart{
+  width: 30px;
 }
 </style>

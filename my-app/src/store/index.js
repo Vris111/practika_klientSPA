@@ -24,7 +24,14 @@ export default createStore({
       state.orders.push(newOrders)
       state.cart.splice(0, state.cart.length)
       console.log(state.orders)
-    }
+    },
+    delCardFromCart(state, product){
+      const productIndex = state.cart.indexOf(product)
+      if(productIndex > -1){
+        state.cart.splice(productIndex,1)
+      }
+    },
+
   },
   actions: {
   },

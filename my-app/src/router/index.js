@@ -10,7 +10,7 @@ const routes = [
   {path: '/cart', name: 'cart', component: CartView},
   {path: '/login', name: 'login', component: LoginView},
   {path: '/registration', name:'registration', component: RegistrationView},
-  {path: '/order_history', name:'order_history', component: OrderHistoryView}
+  {path: '/order', name:'order', component: OrderHistoryView}
 ]
 
 const router = createRouter({
