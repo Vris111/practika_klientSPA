@@ -1,13 +1,14 @@
 <template>
   <nav>
-    <div>
-      <router-link to="/">Home</router-link> |
-      <router-link v-if="store.state.user_token !== null" to="/cart">Cart</router-link> |
-      <router-link to="/order">My orders</router-link>
+    <div class="nav_split_top">
+      <router-link to="/">Home</router-link>
+      <router-link v-if="store.state.user_token !== null" to="/cart">Cart</router-link>
+      <router-link v-if="store.state.user_token !== null" to="/order">MyOrders</router-link>
     </div>
     <div class="nav_split">
-      <router-link to="/login">Login</router-link>
-      <router-link to="/registration">Registration</router-link>
+      <router-link v-if="store.state.user_token === null" to="/login">Login</router-link>
+      <router-link v-if="store.state.user_token === null" to="/registration">Registration</router-link>
+      <router-link v-else to="/logout" @click="store.commit('logout')">Logout</router-link>
     </div>
   </nav>
   <router-view/>
@@ -15,6 +16,10 @@
 </template>
 
 <style>
+.nav_split_top{
+  display: flex;
+  gap: 20px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,7 +38,7 @@ nav {
 
 .nav_split{
   display: flex;
-  flex-direction: column;
+  gap: 15px;
 }
 
 nav a {

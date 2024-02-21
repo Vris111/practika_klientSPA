@@ -71,6 +71,11 @@ export default createStore({
         state.cart.splice(productIndex,1)
       }
     },
+    logout(state){
+      state.user_token = null
+      localStorage.clear()
+      window.location.href = "/";
+    }
 
   },
   actions: {
