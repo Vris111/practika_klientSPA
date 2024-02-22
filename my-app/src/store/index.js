@@ -47,6 +47,7 @@ export default createStore({
           })
           .catch(error =>{console.log(error)})
       console.log(data)
+      console.log(state.user_token)
       window.location.href = "/";
     },
 
@@ -71,7 +72,7 @@ export default createStore({
       try {
         const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`,
             {product}, {headers:{Authorization: `Bearer ${state.user_token}`}});
-        state.item_for_push_in_cart = state.products.find(product => product.id === response.data.data.product_id)
+        state.item_for_push_in_cart = {...state.products.find(product => product.id === response.data.data.product_id), product_cart_id: response.data.data.product_cart_id}
         state.cart.push(state.item_for_push_in_cart);
         state.item_for_push_in_cart = null
         console.log('Product add to cart', state.cart)
@@ -82,17 +83,24 @@ export default createStore({
         console.error('Error adding product to cart:', error);
       }
     },
+    async delCardFromCart(state, product){
+      try {
+        console.log(product)
+        let id = product.product_cart_id
+        const response = await axios.delete(`https://jurapro.bhuser.ru/api-shop/cart/${id}`,
+            {headers:{Authorization: `Bearer ${state.user_token}`}});
+        state.cart = state.cart.filter(product => product.product_cart_id !== id)
+        console.log('Server coll',response.data)
+        console.log('Cart',state.cart)
+      } catch (error) {
+        console.error('Error', error);
+      }
+    },
     createOrder(state){
       let newOrders = state.cart.map(item => ({...item}))
       state.orders.push(newOrders)
       state.cart.splice(0, state.cart.length)
       console.log(state.orders)
-    },
-    delCardFromCart(state, product){
-      const productIndex = state.cart.indexOf(product)
-      if(productIndex > -1){
-        state.cart.splice(productIndex,1)
-      }
     },
     logout(state){
       state.user_token = null
