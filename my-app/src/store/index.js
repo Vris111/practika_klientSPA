@@ -11,6 +11,8 @@ export default createStore({
     email: null,
     password: null,
     fio: null,
+    item_for_push_in_cart: null,
+    item_id_for_push_in_cart: null,
 
   },
   getters: {
@@ -27,6 +29,7 @@ export default createStore({
           .then(response => state.cart = response.data)
           .catch(error =>{console.log(error)})
       state.cart = data;
+      console.log(state.cart)
     },
 
     async login(state){
@@ -68,7 +71,12 @@ export default createStore({
       try {
         const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`,
             {product}, {headers:{Authorization: `Bearer ${state.user_token}`}});
-        state.cart = response.data.data;
+        state.item_for_push_in_cart = state.products.find(product => product.id === response.data.data.product_id)
+        state.cart.push(state.item_for_push_in_cart);
+        state.item_for_push_in_cart = null
+        console.log('Product add to cart', state.cart)
+        console.log('Server coll',response.data)
+        console.log('Cart',state.cart)
 
       } catch (error) {
         console.error('Error adding product to cart:', error);
