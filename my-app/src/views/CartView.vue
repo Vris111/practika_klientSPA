@@ -5,6 +5,11 @@ export default {
   computed: {
     store() {
       return store
+    },
+    totalPrice() {
+      return this.store.state.cart.reduce((acc, product) => {
+        return acc + product.price;
+      }, 0);
     }
   },
   data(){
@@ -19,14 +24,14 @@ export default {
 <template>
   <h2>Products in cart:</h2>
   <div class="cart_top">
-    <h3 class="price_for_order">Price:</h3>
+    <h3 class="price_for_order">Price:{{totalPrice}}</h3>
     <button class="create_new_order" @click="store.commit('createOrder')">Create order</button>
   </div>
   <div class="cart">
     <div class="item" v-for="product in store.state.cart" :key="product.id">
-      <p>{{ product.name }} <button class="delete_card_from_cart" @click="store.commit('delCardFromCart', product)">×</button></p>
+      <p>{{ product.name }}</p>
       <p>{{ product.description }}</p>
-      <p>{{ product.price }}</p>
+      <p class="item_bot">{{ product.price }}<button class="delete_card_from_cart" @click="store.commit('delCardFromCart', product)">×</button></p>
     </div>
   </div>
 </template>
@@ -40,12 +45,15 @@ export default {
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  background-color: #89ea92;
 }
 
 .cart {
   display: grid;
   grid-template-columns: 150px 150px 150px 150px 150px;
   gap: 90px;
+  justify-content: center;
+  position: relative;
 }
 
 .create_new_order{
@@ -66,5 +74,11 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 70px;
+}
+
+.item_bot{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }
 </style>

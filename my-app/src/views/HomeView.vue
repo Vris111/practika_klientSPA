@@ -24,7 +24,7 @@ export default {
         {{product.description}}
         <p></p>
         {{product.price}}
-        <button class="addItemInCart" v-if="store.state.user_token !== null"  @click="store.commit('addToCart', {product})">Buy</button>
+        <button class="addItemInCart" v-if="store.state.user_token !== null"  @click="store.commit('addToCart', {product})">Add to cart</button>
       </p>
     </ul>
   </div>
@@ -39,11 +39,21 @@ export default {
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  background-color: #89ea92;
 }
 
 .products_all {
   display: grid;
   grid-template-columns: 150px 150px 150px 150px 150px;
   gap: 90px;
+  justify-content: center;
+  position: relative;
+  right: 50px;
+}
+
+.addItemInCart{
+  background-color: #2a9a35;
+  font-size: 14px;
+  border-color: black;
 }
 </style>
