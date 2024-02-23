@@ -19,19 +19,25 @@ export default createStore({
   },
   mutations: {
     async getProducts(state){
-      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/products')
+      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/products',{headers:{Authorization: `Bearer ${state.user_token}`}})
           .then(response => state.products = response.data)
           .catch(error =>{console.log(error)})
       state.products = data;
     },
     async getProductsFromCart(state){
-      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/cart')
+      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/cart',{headers:{Authorization: `Bearer ${state.user_token}`}})
           .then(response => state.cart = response.data)
           .catch(error =>{console.log(error)})
       state.cart = data;
       console.log(state.cart)
     },
-
+    async getOrders(state){
+      const {data} = await axios.get('https://jurapro.bhuser.ru/api-shop/order',{headers:{Authorization: `Bearer ${state.user_token}`}})
+          .then(response => state.orders = response.data)
+          .catch(error =>{console.log(error)})
+      state.orders = data;
+      console.log('Orders checker',state.orders)
+    },
     async login(state){
       //валидация
       let userData={
@@ -73,7 +79,6 @@ export default createStore({
         const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${product.id}`,
             {product}, {headers:{Authorization: `Bearer ${state.user_token}`}});
         state.item_for_push_in_cart = {...state.products.find(product => product.id === response.data.data.product_id), product_cart_id: response.data.data.product_cart_id}
-        state.cart.push(state.item_for_push_in_cart);
         state.item_for_push_in_cart = null
         console.log('Product add to cart', state.cart)
         console.log('Server coll',response.data)
@@ -86,26 +91,39 @@ export default createStore({
     async delCardFromCart(state, product){
       try {
         console.log(product)
-        let id = product.product_cart_id
+        let id = product.id
         const response = await axios.delete(`https://jurapro.bhuser.ru/api-shop/cart/${id}`,
             {headers:{Authorization: `Bearer ${state.user_token}`}});
-        state.cart = state.cart.filter(product => product.product_cart_id !== id)
         console.log('Server coll',response.data)
         console.log('Cart',state.cart)
+        await this.commit('getProductsFromCart')
       } catch (error) {
         console.error('Error', error);
+        console.log(product)
       }
     },
-    createOrder(state){
-      let newOrders = state.cart.map(item => ({...item}))
-      state.orders.push(newOrders)
-      state.cart.splice(0, state.cart.length)
-      console.log(state.orders)
+    async createOrder(state){
+      let newOrder = state.cart.map(item => ({...item}))
+      try {
+        const response = await axios.post(`https://jurapro.bhuser.ru/api-shop/order`, newOrder,
+            {headers:{Authorization: `Bearer ${state.user_token}`}})
+        state.cart.splice(0, state.cart.length)
+        console.log('Order log',response.data)
+        console.log('Orders', state.orders)
+        window.location.href='/order'
+      }catch (error) {
+        console.error('Error, cart is empty');
+      }
     },
-    logout(state){
+    async logout(state){
+      try {
+        const response = await axios.get('https://jurapro.bhuser.ru/api-shop/logout',{headers:{Authorization: `Bearer ${state.user_token}`}})
+        console.log(response.data)
+      } catch (error){
+        console.error('Logout error');
+      }
       state.user_token = null
       localStorage.clear()
-      window.location.href = "/";
     }
 
   },

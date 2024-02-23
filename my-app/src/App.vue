@@ -1,5 +1,6 @@
 <template>
   <nav>
+    <router-link class="back" v-if="$route.path !== '/'" to="/">Back</router-link>
     <div class="nav_split_top">
       <router-link to="/">Home</router-link>
       <router-link v-if="store.state.user_token !== null" to="/cart">Cart</router-link>
@@ -52,6 +53,11 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #9b03e8;
+}
+
+.back{
+  position: relative;
+  right: 40%;
 }
 </style>
 <script>

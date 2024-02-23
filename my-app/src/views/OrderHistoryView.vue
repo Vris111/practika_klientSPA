@@ -7,6 +7,9 @@ export default {
       return store
     }
   },
+  mounted() {
+    this.$store.commit('getOrders');
+  }
 }
 
 </script>
@@ -15,12 +18,10 @@ export default {
   <div class="orders_view">
     <h2>Your orders:</h2>
     <div class="cart">
-      <div class="order" v-for="product in store.state.orders" :key="product.id">
-        <div class="item" v-for="item in product" :key="item.id">
-          <p>{{ item.name }}</p>
-          <p>{{ item.description }}</p>
-          <p>{{ item.price }}</p>
-        </div>
+      <div class="order" v-for="order in store.state.orders" :key="order.id">
+        <p>Order number:{{order.id}}</p>
+        <p>Products:{{order.products}}</p>
+        <p>Price:{{order.order_price}}</p>
       </div>
     </div>
   </div>
@@ -39,7 +40,9 @@ export default {
 .order{
   display: flex;
   gap: 60px;
-
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 2px 2px 1px 2px;
 }
 
 .cart {
@@ -51,7 +54,7 @@ export default {
 .orders_view{
   background-color: #eff5dc;
   width: 100%;
-  height: 42vw;
+  height: 100%;
   margin-top: 10px;
   padding-top: 20px;
 }

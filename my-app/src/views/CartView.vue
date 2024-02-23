@@ -7,16 +7,17 @@ export default {
       return store
     },
     totalPrice() {
-      return this.store.state.cart.reduce((acc, product) => {
-        return acc + product.price;
+      if (!Array.isArray(this.store.state.cart)) {
+        return 0;
+      }
+      return this.store.state.cart.reduce((total, product) => {
+        return total + product.price;
       }, 0);
     }
   },
-  data(){
-    return{
-      countItemId: 0,
-    }
-  },
+  mounted() {
+    this.$store.commit('getProductsFromCart');
+  }
 }
 
 </script>
@@ -32,7 +33,8 @@ export default {
       <div class="item" v-for="product in store.state.cart" :key="product.id">
         <p>{{ product.name }}</p>
         <p>{{ product.description }}</p>
-        <p class="item_bot">{{ product.price }}<button class="delete_card_from_cart" @click="store.commit('delCardFromCart', product)">×</button></p>
+        {{ product.price }}
+        <button class="delete_card_from_cart" @click="store.commit('delCardFromCart', product)">Delete from cart</button>
       </div>
     </div>
   </div>
@@ -48,6 +50,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #89ea92;
+  box-shadow: 2px 5px 4px 2px;
 }
 
 .cart {
@@ -66,9 +69,9 @@ export default {
 }
 
 .delete_card_from_cart{
-  width: 30px;
-  background-color: #f30000;
-  color: white;
+  background-color: #ef1919;
+  font-size: 14px;
+  border-color: black;
 }
 
 .cart_top{
@@ -78,17 +81,12 @@ export default {
   gap: 70px;
 }
 
-.item_bot{
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
 .cart_view{
   background-color: #eff5dc;
   width: 100%;
-  height: 42vw;
+  height: 100%;
   margin-top: 10px;
   padding-top: 50px;
+  min-height: 50vw;
 }
 </style>

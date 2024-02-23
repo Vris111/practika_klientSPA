@@ -7,12 +7,7 @@ export default {
     store() {
       return store
     }
-  },
-  data(){
-    return{
-      countItemId: 0,
-    }
-  },
+  }
 }
 
 </script>
