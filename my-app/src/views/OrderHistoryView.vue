@@ -19,22 +19,30 @@ export default {
     <h2>Your orders:</h2>
     <div class="cart">
       <div class="order" v-for="order in store.state.orders" :key="order.id">
-        <p>Order number:{{order.id}}</p>
-        <p>Products:{{order.products}}</p>
-        <p>Price:{{order.order_price}}</p>
+        <p class="order_number">Order number:{{order.id}}</p>
+        <p class="">Products:{{order.products}}</p>
+<!--        <div class="lock" v-for="item in order.products">-->
+<!--            {{item}}-->
+<!--        </div>-->
+        <p class="order_price">Price: {{order.order_price}} $</p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.item{
-  border: 1px solid black;
-  padding: 5px;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-  width: 300px;
+.lock{
+  max-width: 1vw;
+}
+
+.order_price{
+  color: black;
+  min-width: 120px;
+}
+
+.order_number{
+  color: black;
+  min-width: 200px;
 }
 
 .order{
@@ -43,6 +51,8 @@ export default {
   border: 1px solid black;
   padding: 10px;
   box-shadow: 2px 2px 1px 2px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cart {
@@ -52,7 +62,7 @@ export default {
 }
 
 .orders_view{
-  background-color: #eff5dc;
+  background-color: #e5e5e5;
   width: 100%;
   height: 100%;
   margin-top: 10px;

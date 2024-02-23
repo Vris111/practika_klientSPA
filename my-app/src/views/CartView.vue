@@ -27,7 +27,7 @@ export default {
     <h2>Products in cart:</h2>
     <div class="cart_top">
       <h3 class="price_for_order">Price:{{totalPrice}}</h3>
-      <button class="create_new_order" @click="store.commit('createOrder')">Create order</button>
+      <button v-if="totalPrice !== 0" class="create_new_order" @click="store.commit('createOrder')">Create order</button>
     </div>
     <div class="cart">
       <div class="item" v-for="product in store.state.cart" :key="product.id">
@@ -49,7 +49,7 @@ export default {
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  background-color: #89ea92;
+  background-color: #f7f8f7;
   box-shadow: 2px 5px 4px 2px;
 }
 
@@ -65,11 +65,11 @@ export default {
   width: 150px;
   height: 30px;
   margin-bottom: 10px;
-  background-color: #42b983;
+  background-color: #858685;
 }
 
 .delete_card_from_cart{
-  background-color: #ef1919;
+  background-color: #9d4747;
   font-size: 14px;
   border-color: black;
 }
@@ -82,7 +82,7 @@ export default {
 }
 
 .cart_view{
-  background-color: #eff5dc;
+  background-color: #e5e5e5;
   width: 100%;
   height: 100%;
   margin-top: 10px;

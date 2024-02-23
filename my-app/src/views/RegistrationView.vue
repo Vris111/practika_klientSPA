@@ -38,7 +38,7 @@ export default {
 }
 
 .reg_view{
-  background-color: #eff5dc;
+  background-color: #e5e5e5;
   width: 100%;
   height: 42vw;
   margin-top: 10px;
@@ -48,7 +48,7 @@ export default {
 .registration{
   width: 120px;
   color: black;
-  background-color: #42b983;
+  background-color: #999b99;
   border-color: black;
 }
 

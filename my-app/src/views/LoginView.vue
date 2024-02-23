@@ -35,7 +35,7 @@ export default {
   left: 43%;
 }
 .login_view{
-  background-color: #eff5dc;
+  background-color: #e5e5e5;
   width: 100%;
   height: 42vw;
   margin-top: 10px;
@@ -49,7 +49,7 @@ export default {
 .login{
   width: 100px;
   color: black;
-  background-color: #42b983;
+  background-color: #999b99;
   border-color: black;
 }
 </style>

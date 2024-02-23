@@ -39,7 +39,7 @@ export default {
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  background-color: #89ea92;
+  background-color: #f7f8f7;
   box-shadow: 2px 5px 4px 2px;
 }
 
@@ -53,13 +53,13 @@ export default {
 }
 
 .addItemInCart{
-  background-color: #2a9a35;
+  background-color: #999b99;
   font-size: 14px;
   border-color: black;
 }
 
 .home_view{
-  background-color: #eff5dc;
+  background-color: #e5e5e5;
 }
 
 .item_price{
