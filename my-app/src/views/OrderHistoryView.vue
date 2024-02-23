@@ -12,13 +12,15 @@ export default {
 </script>
 
 <template>
-  <h2>Products in order:</h2>
-  <div class="cart">
-    <div class="order" v-for="product in store.state.orders" :key="product.id">
-      <div class="item" v-for="item in product" :key="item.id">
-        <p>{{ item.name }}</p>
-        <p>{{ item.description }}</p>
-        <p>{{ item.price }}</p>
+  <div class="orders_view">
+    <h2>Your orders:</h2>
+    <div class="cart">
+      <div class="order" v-for="product in store.state.orders" :key="product.id">
+        <div class="item" v-for="item in product" :key="item.id">
+          <p>{{ item.name }}</p>
+          <p>{{ item.description }}</p>
+          <p>{{ item.price }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -44,5 +46,13 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 90px;
+}
+
+.orders_view{
+  background-color: #eff5dc;
+  width: 100%;
+  height: 42vw;
+  margin-top: 10px;
+  padding-top: 20px;
 }
 </style>

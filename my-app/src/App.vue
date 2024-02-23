@@ -34,11 +34,15 @@ nav {
   justify-content: center;
   gap: 30px;
   align-items: center;
+  background-color: #42b983;
+  box-shadow: 0 2px 3px 2px;
 }
 
 .nav_split{
   display: flex;
   gap: 15px;
+  position: relative;
+  left: 40%;
 }
 
 nav a {
@@ -47,7 +51,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #9b03e8;
 }
 </style>
 <script>

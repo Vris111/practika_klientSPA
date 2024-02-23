@@ -16,14 +16,14 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="home_view">
     <ul class="products_all">
       <p class="item" v-for="(product, index) in store.state.products" :key="product.id">
-        {{product.name}}
+        <p class="item_name">{{product.name}}</p>
         <p></p>
         {{product.description}}
         <p></p>
-        {{product.price}}
+        <p class="item_price">{{product.price}} $</p>
         <button class="addItemInCart" v-if="store.state.user_token !== null"  @click="store.commit('addToCart', {product})">Add to cart</button>
       </p>
     </ul>
@@ -40,6 +40,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #89ea92;
+  box-shadow: 2px 5px 4px 2px;
 }
 
 .products_all {
@@ -55,5 +56,18 @@ export default {
   background-color: #2a9a35;
   font-size: 14px;
   border-color: black;
+}
+
+.home_view{
+  background-color: #eff5dc;
+}
+
+.item_price{
+  font-size: 18px;
+  color: black;
+}
+
+.item_name{
+  color: black;
 }
 </style>
