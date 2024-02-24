@@ -7,7 +7,6 @@ export default createStore({
     cart: [],
     orders: [],
     user_token: null,
-    user_is_auth: false,
     email: null,
     password: null,
     fio: null,
@@ -39,7 +38,6 @@ export default createStore({
       console.log('Orders checker',state.orders)
     },
     async login(state){
-      //валидация
       let userData={
         email: state.email,
         password: state.password
@@ -62,7 +60,6 @@ export default createStore({
     },
 
     async registration(state){
-      //валидация
       let userData = {
         fio: state.fio,
         email: state.email,
