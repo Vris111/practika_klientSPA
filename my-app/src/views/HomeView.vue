@@ -19,7 +19,7 @@ export default {
   <div class="home_view">
     <ul class="products_all">
       <p class="item" v-for="(product, index) in store.state.products" :key="product.id">
-        <p class="item_name">{{product.name}}</p>
+        <p class="item_name">{{product.id}}  ||  {{product.name}}</p>
         <p></p>
         {{product.description}}
         <p></p>

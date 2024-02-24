@@ -54,7 +54,11 @@ export default createStore({
           .catch(error =>{console.log(error)})
       console.log(data)
       console.log(state.user_token)
-      window.location.href = "/";
+      if (state.user_token !== null){
+        window.location.href = "/";
+      }else {
+        alert('This user does not exist, please try again. ')
+      }
     },
 
     async registration(state){
@@ -72,7 +76,11 @@ export default createStore({
           })
           .catch(error =>{console.log(error)})
       console.log(data)
-      window.location.href = "/";
+      if (state.user_token !== null){
+        window.location.href = "/";
+      }else {
+        alert('Invalid data, please try again. ')
+      }
     },
     async addToCart(state, {product}) {
       try {
